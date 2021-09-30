@@ -1,0 +1,26 @@
+/* header styling */
+header {
+    background-image: linear-gradient(to right, rgb(20, 82, 139), rgb(98, 54, 116));
+    color: white;
+    margin: 10px;
+    padding: 5px;
+}
+
+/* search bar styling */
+#search-button {
+    background-color: rgb(20, 82, 139);
+    color: white;
+    width: 100%;
+}
+
+.button-container {
+    border-bottom: solid black 2px;
+    padding-bottom: 20px;
+}
+
+
+/* current weather styling */
+
+
+
+/* 5 day forecast styling */
