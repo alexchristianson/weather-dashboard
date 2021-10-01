@@ -1,24 +1,39 @@
-
 var getCurrentWeather = function() {
-    var apiURL = "https://api.openweathermap.org/data/2.5/weather?q=" + "chicago" + "&units=imperial&appid=d3b85d453bf90d469c82e650a0a3da26";
-    fetch(apiURL)
+    fetch("https://api.openweathermap.org/data/2.5/weather?q=chicago&appid=f335f366e0ef6a0f6345f01a604b40bd")
     .then(function(response) {
-        return response.json();
+        return response.json()
     })
-    .then(function(current) {
-        console.log(current);    
-    })     
+    .then(function(res) {
+        console.log(res);
+        getForecast(res.coord.lat, res.coord.lon)
+    })
 };
 
-var getForecast = function() {
-    var forecastApiUrl = "https://api.openweathermap.org/data/2.5/forecast?q=" + "chicago" + "&appid=d3b85d453bf90d469c82e650a0a3da26";
-    fetch(forecastApiUrl)
-        .then(function(response) {
-        return response.json();
+var getForecast = function(lat, lon) {
+    fetch("https://api.openweathermap.org/data/2.5/onecall?lat=" + lat + "&lon=" + lon + "&exclude=minutely,hourly,alerts&appid=f335f366e0ef6a0f6345f01a604b40bd")
+    .then(function(response) {
+        return response.json()
     })
-    .then(function(daily) {
-        console.log(daily);
-    })
-};
-getForecast();
+    .then(function(data) {
+        console.log(data);
+        var forecastContainter = document.querySelector("#forecast");
+        for(var i = 0; i < data.daily.length - 3; i++) {
+            var tempDiv = document.createElement("div");
+            tempDiv.textContent = "temp: " + data.daily[i].temp.day;
+            var windDiv = document.createElement("div");
+            windDiv.textContent = "wind: " + data.daily[i].wind_speed;
+            var humidDiv = document.createElement("div");
+            humidDiv.textContent = "humidity: " + data.daily[i].humidity;
+
+            var forecastCard = document.createElement("div");
+            forecastCard.classList.add("col-2", "card");
+
+            forecastCard.append(tempDiv, windDiv, humidDiv);
+
+            forecastContainter.append(forecastCard);
+
+    }
+    }
+    )}
+
 getCurrentWeather();
