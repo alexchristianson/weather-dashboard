@@ -20,7 +20,9 @@ header {
 
 
 /* current weather styling */
-
+.icon {
+    width: 100px;
+}
 
 
 /* 5 day forecast styling */
