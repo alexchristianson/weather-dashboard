@@ -24,5 +24,27 @@ header {
     width: 100px;
 }
 
+.date {
+    font-size: 20px;
+    font-weight: bold;
+}
+
+#weather {
+    padding: 10px;
+    margin-bottom: 10px;
+    border: solid black 1px;
+    background-color: rgb(20, 82, 139);
+    color: white;
+}
+
+#weather.div {
+    padding-top: 2px;
+}
+
 
 /* 5 day forecast styling */
+#forecast-card {
+    background-image: linear-gradient(to right, rgb(20, 82, 139), rgb(98, 54, 116));
+    color: white;
+    padding: 10px;
+}
