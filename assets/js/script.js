@@ -2,9 +2,10 @@
 var citySearchBar = document.querySelector("#search-bar");
 var citySearchInput = document.querySelector("#search-city")
 var searchButton = document.querySelector("#search-button");
-var cities = [];
 var forecastContainter = document.querySelector("#forecast-row");
 var currentWeatherEl = document.querySelector("#weather");
+var prevSearchContainer = document.querySelector("#past-cities");
+var cities = [];
 
 var citySearchHandler = function(event) {
     
@@ -18,9 +19,11 @@ var citySearchHandler = function(event) {
     }
     else {
         alert("Please enter a city");
+        return;
     }
 
     saveCity();
+    prevSearch(city);
 };
 
 var saveCity = function() {
@@ -35,7 +38,9 @@ var getCurrentWeather = function(city) {
     })
     .then(function(res) {
         console.log(res);
-        getForecast(res.coord.lat, res.coord.lon, city);
+        var lat = res.coord.lat;
+        var lon = res.coord.lon;
+        getForecast(lat, lon, city);
     })
 
     // clear old content from page
@@ -113,6 +118,27 @@ var getForecast = function(lat, lon, city) {
     })
 };
 
+var prevSearch = function(prevSearch) {
+    
+
+    var prevSearchButton = document.createElement("button");
+    prevSearchButton.textContent = prevSearch.toUpperCase();
+    prevSearchButton.classList.add("btn", "btn-secondary", "w-100", "p-2", "mt-2");
+    prevSearchButton.setAttribute("data-city", prevSearch)
+    prevSearchButton.setAttribute("type", "button");
+
+    prevSearchContainer.prepend(prevSearchButton);
+};
+
+var prevSearchHandler = function (event) {
+    var city = event.target.getAttribute("data-city");
+    if (city) {
+        getCurrentWeather(city);
+        getForecast(lat, lon, city);
+    }
+};
 
 
+
+prevSearchContainer.addEventListener("click", prevSearchHandler);
 searchButton.addEventListener("click", citySearchHandler);
